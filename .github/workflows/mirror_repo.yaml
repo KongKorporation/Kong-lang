@@ -1,5 +1,5 @@
 name: Mirroring To Epitech
-run-name: Mirroring Glados
+run-name: Mirroring Kong
 
 on:
   workflow_run:

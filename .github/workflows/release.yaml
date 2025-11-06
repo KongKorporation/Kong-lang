@@ -1,5 +1,5 @@
 name: Release
-run-name: Releasing Glados
+run-name: Releasing Kong
 
 on:
   push:
@@ -21,15 +21,14 @@ jobs:
           fetch-depth: 0
           fetch-tags: true
       - name: Configure Git security
-        run: git config --global --add safe.directory /__w/Glados/Glados
+        run: git config --global --add safe.directory /__w/Kong-lang/Kong-lang
       - name: Fetch tags with annotations
         run: git fetch --tags --force
       - name: Build project
-        run: make all
+        run: make
       - name: Verify binaries exist
         run: |
-          test -f Kong/glados-kong && echo "✅ Kong binary built"
-          test -f LispInterpreter/glados-lisp && echo "✅ Lisp binary built"
+          test -f kong && echo "✅ Kong binary built"
       - name: Extract tag name
         id: tag
         run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
@@ -49,11 +48,10 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          name: "Glados ${{ steps.tag.outputs.tag }}"
+          name: "Kong ${{ steps.tag.outputs.tag }}"
           body: ${{ steps.release_notes.outputs.notes }}
           files: |
-            Kong/glados-kong
-            LispInterpreter/glados-lisp
+            kong
           draft: false
           prerelease: false
         env:

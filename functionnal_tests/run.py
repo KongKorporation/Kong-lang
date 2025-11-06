@@ -4,30 +4,42 @@ from colorama import Fore, Style, Back
 import json
 import sys
 
-def gen_test_file(lisp_code: str, input: str, test_name: str):
-    with open(f"functionnal_tests/tmp/{test_name}.lsp", "w") as f:
+BINARY_NAME = "./kong"
+COMPILE_COMMAND = BINARY_NAME
+EXECUTE_COMMAND = "./kong --exec"
+COMPILED_NAME = "strong.out"
+
+def gen_test_file(lisp_code: str, vars: list[str], input: str, test_name: str):
+    with open(f"functionnal_tests/tmp/{test_name}.kong", "w") as f:
         f.write(lisp_code)
         f.write("\n")
-        f.write(input)
+        f.write(f"Funk main() -> Int {{\n")
+        f.write("".join(f"  {var}\n" for var in vars))
+        f.write(f"  print({input});\n")
+        f.write(f"  Return 0;\n")
+        f.write(f"}}\n")
 
 def read_tests(test_data: dict[str, str]):
-    lisp_file = test_data.get("lisp_file", "")
-    lisp_code = open(lisp_file).read() if lisp_file else ""
+    script_file = test_data.get("script_file", "")
+    lisp_code = open(script_file).read() if script_file else ""
 
     for test in test_data["tests"]:
         current_test = test_data["tests"][test]
         test_description = current_test["description"]
         expected_output = current_test["expected"]
         input = current_test["input"]
-        gen_test_file(lisp_code, input, test)
-        output = os.popen(f"./glados-lisp < functionnal_tests/tmp/{test}.lsp").read().strip().split("\n")[-2]
-        if output == expected_output:
+        vars = current_test.get("vars", {}).values()
+        gen_test_file(lisp_code, vars, input, test)
+        os.system(f"{COMPILE_COMMAND} functionnal_tests/tmp/{test}.kong")
+        output = os.popen(f"{EXECUTE_COMMAND} {COMPILED_NAME}").read().strip().split("\n")
+        output = [line for line in output if "[Bytecode]" not in line and "[Execution finished]" not in line]
+        if "".join(output) == expected_output:
             print(Fore.GREEN + f"[SUCCESS]" + Style.RESET_ALL +  f" {test_description}" + Style.RESET_ALL)
             success_tests.append(test_description)
         else:
-            print(Fore.RED + f"[FAILED]"  + Style.RESET_ALL + f" {test_description}" + Style.RESET_ALL)
+            print(Fore.RED + f"[FAILED]"  + Style.RESET_ALL + f" ({test}) {test_description}" + Style.RESET_ALL)
             print(Back.RED + Fore.WHITE + f"Expected: {expected_output}" + Style.RESET_ALL)
-            print(Back.RED + Fore.WHITE + f"Got: {output}" + Style.RESET_ALL)
+            print(Back.RED + Fore.WHITE + f"Got: {"".join(output)}" + Style.RESET_ALL)
             failed_tests.append(test_description)
 
 def print_summary():
@@ -42,7 +54,7 @@ if __name__ == "__main__":
     test_files = glob.glob("functionnal_tests/tests/*.json")
 
     print(Fore.GREEN + "Building the project..." + Style.RESET_ALL)
-    os.system("make re")
+    os.system(f"rm -f {BINARY_NAME} && make")
     print(Fore.GREEN + "Running tests..." + Style.RESET_ALL)
     
     for test_file in test_files:

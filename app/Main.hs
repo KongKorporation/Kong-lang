@@ -32,15 +32,15 @@ getComputeData (x:xs) (n, r) = getComputeData xs (n, x:r)
 
 printUsage :: IO ()
 printUsage = hPutStrLn stderr $ unlines
-    [ "Usage: glados [OPTIONS] <source-file> [additional-files...]"
+    [ "Usage: ./kong [OPTIONS] <source-file> [additional-files...]"
     , ""
     , "Options:"
     , "  --exec <file>              Execute a pre-compiled bytecode file"
     , "  -o <output binary name>    set the output binary name (default strong.out)"
     , ""
     , "Examples:"
-    , "  glados main.kong lib.kong         # Compile multiple Kong files"
-    , "  glados --exec program.bytecode    # Execute pre-compiled bytecode"
+    , "  ./kong main.kong lib.kong         # Compile multiple Kong files"
+    , "  ./kong --exec program.bytecode    # Execute pre-compiled bytecode"
     ]
 
 compileAndWrite :: String -> [(String, [Ast])] -> IO ()

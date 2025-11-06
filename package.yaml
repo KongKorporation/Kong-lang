@@ -1,10 +1,10 @@
-name: glados-kong
+name: kong
 version: 0.1.0.0
-github: "PierrePruvost03/Glados"
+github: "KongKorporation/Kong-lang"
 license: BSD-3-Clause
-author: "kong strong, un raciste et un nerd"
-maintainer: "abel.daverio@epitech.eu" # cheh les autres fallais faire la config
-copyright: "la team des goats finalement"
+author: "kong strong"
+maintainer: "abel.daverio@epitech.eu, pierre.pruvost@epitech.eu, alexandre.guillaud@epitech.eu, sami.hamrouni@epitech.eu, paul.berlioz@epitech.eu"
+copyright: "KongKorporation"
 
 extra-source-files:
   - README.md
@@ -16,7 +16,7 @@ extra-source-files:
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
 # common to point users to the README.md file.
-description: Please see the README on GitHub at <https://github.com/githubuser/glados#readme>
+description: Please see the README on GitHub at <https://github.com/KongKorporation/Kong-lang#readme>
 
 dependencies:
   - base >= 4.7 && < 5
@@ -41,7 +41,7 @@ library:
   source-dirs: src
 
 executables:
-  glados-kong-exe:
+  kong-exe:
     main: Main.hs
     source-dirs: app
     ghc-options:
@@ -49,7 +49,7 @@ executables:
       - -rtsopts
       - -with-rtsopts=-N
     dependencies:
-      - glados-kong
+      - kong
 
 tests:
   kong-test:
@@ -60,6 +60,6 @@ tests:
       - -rtsopts
       - -with-rtsopts=-N
     dependencies:
-      - glados-kong
+      - kong
       - HUnit
       - temporary

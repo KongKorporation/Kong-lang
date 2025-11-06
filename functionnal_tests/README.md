@@ -1,11 +1,9 @@
-# COMMENT LANCER LES TESTS
+# How to land tests
 
-
-### Deja va dans kong/ c tout
+### At the root of the repository
 
 ```bash
 ./functionnal_tests/install_requirements.sh
 source .venv/bin/activate
 python functionnal_tests/run.py
 ```
-## Voila c fini
