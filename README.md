@@ -18,7 +18,7 @@ You can find the 2 binaries in the last release.
 
 ## Supported features
 
-See the [Kong Wiki](#) for a full list of supported features and examples.
+See the [Kong Documentation](https://kongkorporation.gitbook.io/kongkorporation-docs/) for a full list of supported features and examples.
 
 ### Types
 
