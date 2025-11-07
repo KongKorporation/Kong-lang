@@ -1,12 +1,7 @@
 name: Kong Compiler - Basic Checks
 
 on:
-  push:
-    branches-ignore:
-      - main
   pull_request:
-    branches-ignore:
-      - main
 
 env:
   STACK_ROOT: /tmp/stack-root

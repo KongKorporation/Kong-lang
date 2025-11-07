@@ -1,18 +1,17 @@
-name: Kong Compiler - Tests
+name: Kong Compiler - Functionnal tests
 
 on:
-  pull_request:
-    branches-ignore:
-      - main
-  push:
-    branches-ignore:
-      - main
+  workflow_run:
+    workflows:
+      - Kong Compiler - Unit tests
+    types:
+      - completed
 
 env:
   STACK_ROOT: /tmp/stack-root
 
 jobs:
-  run_kong_tests:
+  run_functionnal_tests:
     defaults: 
       run:
         shell: bash
@@ -21,8 +20,6 @@ jobs:
       image: epitechcontent/epitest-docker
     steps:
       - uses: actions/checkout@v4
-      - name: run Kong unit tests
-        run: make test
       - name: run Kong functional tests
         run: |
           sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install python3-venv -y
