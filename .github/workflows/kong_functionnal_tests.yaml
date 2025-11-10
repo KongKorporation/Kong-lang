@@ -1,11 +1,7 @@
 name: Kong Compiler - Functionnal tests
 
 on:
-  workflow_run:
-    workflows:
-      - Kong Compiler - Unit tests
-    types:
-      - completed
+  pull_request:
 
 env:
   STACK_ROOT: /tmp/stack-root
