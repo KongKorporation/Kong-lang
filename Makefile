@@ -1,40 +1,40 @@
 ##
 ## EPITECH PROJECT, 2025
-## makefile glados
+## makefile
 ## File description:
-## Makefile for glados
+## Makefile
 ##
 
-all: lisp kong
+NAME	= kong
 
-lisp:
-	@echo "=== Building LISP Interpreter ==="
-	cd LispInterpreter && $(MAKE)
+STACKNAME	= kong-exe
 
-kong:
-	@echo "=== Building Kong Compiler ==="
-	cd Kong && $(MAKE)
+all:	$(NAME)
 
-test: test-lisp test-kong
-
-test-lisp:
-	@echo "=== Testing LISP Interpreter ==="
-	cd LispInterpreter && $(MAKE) test
-
-test-kong:
-	@echo "=== Testing Kong Compiler ==="
-	cd Kong && $(MAKE) test
+$(NAME):
+	stack build --copy-bins --allow-different-user
+	mv $(STACKNAME)	$@
 
 clean:
-	@echo "=== Cleaning all projects ==="
-	cd LispInterpreter && $(MAKE) clean || true
-	cd Kong && $(MAKE) clean || true
+	stack clean
+	$(RM) strong.out
+	$(RM) test/coverage/*.html
+	$(RM) test/coverage/*.tix
+	$(RM) functionnal_tests/tmp/*.kong
 
-fclean:
-	@echo "=== Deep cleaning all projects ==="
-	cd LispInterpreter && $(MAKE) fclean || true
-	cd Kong && $(MAKE) fclean || true
+fclean:	clean
+	$(RM) $(NAME)
 
-re: fclean all
+re:	fclean all
 
-.PHONY: all lisp kong clean fclean re test
+FUNC_TEST_OUTPUT_DIR	=	functionnal_tests/tmp
+
+FUNC_TEST_OUTPUT_LOG	=	$(FUNC_TEST_OUTPUT_DIR)/result.log
+
+tests_run:
+	stack test --coverage --allow-different-user
+	stack hpc report --all --destdir ./test/coverage
+
+test: tests_run
+
+.PHONY: all clear fclean re tests_run test

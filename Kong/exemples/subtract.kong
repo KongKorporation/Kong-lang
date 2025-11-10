@@ -1,3 +1,0 @@
-Funk subtract(Int a, Int b) -> Int {
-    Return a - b;
-}

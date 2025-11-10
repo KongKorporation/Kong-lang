@@ -1,0 +1,24 @@
+name: Kong Compiler - Unit tests
+
+on:
+  workflow_run:
+    workflows:
+      - Kong Compiler - Basic Checks
+    types:
+      - completed
+
+env:
+  STACK_ROOT: /tmp/stack-root
+
+jobs:
+  run_unit_tests:
+    defaults: 
+      run:
+        shell: bash
+    runs-on: ubuntu-latest
+    container:
+      image: epitechcontent/epitest-docker
+    steps:
+      - uses: actions/checkout@v4
+      - name: run Kong unit tests
+        run: make test
