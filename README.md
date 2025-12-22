@@ -95,4 +95,4 @@ See the [Kong Documentation](https://kongkorporation.gitbook.io/kongkorporation-
 ## Contributors
 | Pierre Pruvost | Abel Daverio | Alexandre Guillaud | Sami Hamrouni | Paul Berlioz |
 |--|--|--|--|--|
-| <img src="https://github.com/PierrePruvost03.png" width="150em"/> | <img src="https://github.com/abeldaverio.png" width="150em"/> | <img src="https://github.com/LixiosDelios.png" width="150em"/> | <img src="https://github.com/sami-hmr.png" width="150em"/> | <img src="https://github.com/PoloTheAspicot.png" width="150em"/> |
+| <img src="https://github.com/eto-NaN.png" width="150em"/> | <img src="https://github.com/abeldaverio.png" width="150em"/> | <img src="https://github.com/LixiosDelios.png" width="150em"/> | <img src="https://github.com/sami-hmr.png" width="150em"/> | <img src="https://github.com/PoloTheAspicot.png" width="150em"/> |
