@@ -1,4 +1,4 @@
-name: Kong Compiler - Basic Checks
+name: Kong Compiler - Unit tests
 
 on:
   pull_request:
@@ -7,13 +7,14 @@ env:
   STACK_ROOT: /tmp/stack-root
 
 jobs:
-  check_kong_compilation:
+  run_unit_tests:
+    defaults: 
+      run:
+        shell: bash
     runs-on: ubuntu-latest
     container:
       image: epitechcontent/epitest-docker
     steps:
       - uses: actions/checkout@v4
-      - name: build Kong compiler
-        run: make
-      - name: check Kong binary exists
-        run: test -f kong
+      - name: run Kong unit tests
+        run: make test

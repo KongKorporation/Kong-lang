@@ -1,10 +1,12 @@
 *.lock
 .stack-work
-glados*
+kong
 test/coverage
 .idea
+*.cabal
+*.out
 hie.yaml
-**/*.venv
+*.venv
 functionnal_tests/tmp/*.lsp
 **/*.log
 dist*
